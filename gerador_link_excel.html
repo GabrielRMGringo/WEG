@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Link Excel</title>
+</head>
+<body>
+    <h1>Gerador de Link para Excel</h1>
+    <p>Digite o código do projeto e clique no botão para gerar o link:</p>
+    <input type="text" id="codigoProjeto" placeholder="Digite o código do projeto">
+    <button onclick="gerarLink()">Gerar Link</button>
+    <p id="resultado"></p>
+
+    <script>
+        function gerarLink() {
+            const codigoProjeto = document.getElementById('codigoProjeto').value;
+            const baseUrl = "ms-excel:ofe|u|https://seusite.sharepoint.com/br/energia-wt/engineering/designregister/Electrical%20Calculation%20Repository/";
+            const link = `${baseUrl}C${codigoProjeto}.xlsm`;
+
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = `Link gerado: <a href="${link}">${link}</a>`;
+
+            // Copiar automaticamente o link para a área de transferência
+            copiarParaClipboard(link);
+            alert("Link copiado para a área de transferência!");
+        }
+
+        function copiarParaClipboard(texto) {
+            const elementoTemporario = document.createElement("textarea");
+            elementoTemporario.value = texto;
+            document.body.appendChild(elementoTemporario);
+            elementoTemporario.select();
+            document.execCommand("copy");
+            document.body.removeChild(elementoTemporario);
+        }
+    </script>
+</body>
+</html>
