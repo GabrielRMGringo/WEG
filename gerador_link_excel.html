@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Links</title>
+    <title>Gerador de Link Excel</title>
     <script>
         function gerarLink() {
-            // Substitua pelo link que você quer gerar dinamicamente (se necessário)
-            const linkGerado = "https://seu-link-exemplo.com";
+            // Obtém o código do projeto inserido pelo usuário
+            const codigoProjeto = document.getElementById("codigoProjeto").value;
 
-            // Copia o link para a área de transferência
-            navigator.clipboard.writeText(linkGerado).then(() => {
-                alert("Link copiado para a área de transferência!");
+            // Link base com o número padrão a ser substituído
+            const linkBase = "ms-excel:ofe|u|https://seusite.sharepoint.com/br/energia-wt/engineering/designregister/Electrical%20Calculation%20Repository/C18204600.xlsm";
 
+            // Substitui o número "18204600" pelo código inserido
+            const linkFinal = linkBase.replace("18204600", codigoProjeto);
+
+            // Copia o link gerado para a área de transferência
+            navigator.clipboard.writeText(linkFinal).then(() => {
                 // Fecha automaticamente a página após copiar
                 window.close();
             }).catch(err => {
                 console.error("Erro ao copiar o link: ", err);
-                alert("Não foi possível copiar o link.");
             });
         }
     </script>
 </head>
-<body onload="gerarLink()">
-    <h1>Gerador de Links</h1>
-    <p>Aguarde enquanto o link é gerado e copiado...</p>
+<body>
+    <h1>Gerador de Link para Excel</h1>
+    <form onsubmit="gerarLink(); return false;">
+        <label for="codigoProjeto">Insira o código do projeto:</label>
+        <input type="text" id="codigoProjeto" name="codigoProjeto" required>
+        <button type="submit">Gerar Link</button>
+    </form>
 </body>
 </html>
